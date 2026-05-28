@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Chatbot from './components/Chatbot';
+import Logo from './components/Logo';
 
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';
@@ -41,7 +42,8 @@ function App() {
         <div className="container">
           <div className="footer-top">
             <div className="footer-col">
-              <div className="logo-brand serif-title gold-text" style={{ marginBottom: '1.5rem', fontSize: '1.8rem' }}>
+              <div className="logo-brand serif-title gold-text" style={{ marginBottom: '1.5rem', fontSize: '1.8rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Logo style={{ height: '38px'}}/>
                 utispace
               </div>
               <p className="footer-desc">

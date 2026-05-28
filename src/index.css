@@ -205,6 +205,20 @@ button, input, textarea, select {
   vertical-align: middle;
 }
 
+.logo-icon-img {
+  height: 42px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.logo-brand:hover .logo-icon-img {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 12px rgba(197, 168, 128, 0.25));
+}
+
 .nav-links {
   display: flex;
   align-items: center;

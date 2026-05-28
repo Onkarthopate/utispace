@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, Globe, User, Menu, X, ChevronDown } from 'lucide-react';
 import { NavLink, Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const Navbar = ({ onSearch }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -71,6 +72,7 @@ const Navbar = ({ onSearch }) => {
         <div className="container navbar-container">
           {/* Logo */}
           <Link to="/" className="logo-brand serif-title">
+            <Logo />
             utispace<span>STUDIO</span>
           </Link>
 
