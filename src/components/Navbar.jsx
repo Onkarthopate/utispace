@@ -153,7 +153,7 @@ const Navbar = ({ onSearch }) => {
                 type="email" 
                 className="form-control" 
                 required 
-                placeholder="design@utispace.com"
+                placeholder="utispace01@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />

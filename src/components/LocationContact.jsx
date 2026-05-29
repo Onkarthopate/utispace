@@ -69,20 +69,20 @@ const LocationContact = () => {
                 <div className="info-card-label">Visit Us</div>
                 <div className="info-card-val" style={{ display: 'flex', gap: '0.5rem', alignItems: 'flex-start' }}>
                   <MapPin size={18} className="gold-text" style={{ flexShrink: 0, marginTop: '0.2rem' }} />
-                  <span>302, Signature Plaza, Lane 6, Koregaon Park, Pune, MH 411001</span>
+                  <span>Office No C3-312, EPIC Plaza, Kesnand Phata, Wagholi, Pune, Maharashtra 412207</span>
                 </div>
               </div>
 
               <div className="contact-info-card">
                 <div className="info-card-label">Contact Details</div>
                 <div className="info-card-val" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <a href="tel:+919876543210" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <a href="tel:+918624052526" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Phone size={15} className="gold-text" />
-                    <span>+91 98765 43210</span>
+                    <span>+91 86240 52526</span>
                   </a>
-                  <a href="mailto:design@utispace.com" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <a href="mailto:utispace01@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Mail size={15} className="gold-text" />
-                    <span>design@utispace.com</span>
+                    <span>utispace01@gmail.com</span>
                   </a>
                 </div>
               </div>
@@ -97,10 +97,10 @@ const LocationContact = () => {
                 <a href="https://instagram.com/utispace_" target="_blank" rel="noopener noreferrer" className="social-icon-btn" aria-label="Instagram">
                   <Instagram size={18} />
                 </a>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="social-icon-btn" aria-label="WhatsApp">
+                <a href="https://wa.me/918624052526" target="_blank" rel="noopener noreferrer" className="social-icon-btn" aria-label="WhatsApp">
                   <MessageCircle size={18} />
                 </a>
-                <a href="mailto:design@utispace.com" className="social-icon-btn" aria-label="Email">
+                <a href="mailto:utispace01@gmail.com" className="social-icon-btn" aria-label="Email">
                   <Mail size={18} />
                 </a>
               </div>
@@ -111,8 +111,8 @@ const LocationContact = () => {
               <div className="simulated-map">
                 <MapPin className="simulated-map-pin" />
                 <div className="simulated-map-label">utispace Studio</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Lane 6, Koregaon Park, Pune</div>
-              </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>EPIC Plaza, Kesnand Phata, Wagholi, Pune</div>
+                </div>
             </div>
           </div>
 

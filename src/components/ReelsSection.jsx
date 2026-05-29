@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Play } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Play, X } from 'lucide-react';
 
 const REELS = [
   {
     id: 1,
     title: 'Site Visit: Living Room Setup',
-    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4', // Demo video
+    videoUrl: '/videos/video.mp4', // User uploaded video
     thumbnail: '/images/living-1.jpg',
   },
   {
@@ -35,10 +35,29 @@ const REELS = [
 ];
 
 const ReelsSection = () => {
-  const [playingVideoId, setPlayingVideoId] = useState(null);
+  const [activeModalReel, setActiveModalReel] = useState(null);
 
-  const handlePlayClick = (id) => {
-    setPlayingVideoId(id);
+  // Close modal on Escape key press and manage body overflow scrolling
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setActiveModalReel(null);
+      }
+    };
+
+    if (activeModalReel) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [activeModalReel]);
+
+  const handlePlayClick = (reel) => {
+    setActiveModalReel(reel);
   };
 
   return (
@@ -54,47 +73,71 @@ const ReelsSection = () => {
 
         <div className="reels-grid">
           {REELS.map((reel) => {
-            const isPlaying = playingVideoId === reel.id;
             const hasVideo = Boolean(reel.videoUrl);
 
             return (
-              <div key={reel.id} className="reel-card">
-                {isPlaying && hasVideo ? (
-                  <video 
-                    src={reel.videoUrl} 
-                    controls
-                    autoPlay
-                    className="reel-video"
-                  />
-                ) : (
-                  <div 
-                    className="reel-placeholder" 
-                    style={{ backgroundImage: `url(${reel.thumbnail})`, cursor: hasVideo ? 'pointer' : 'default' }}
-                    onClick={() => hasVideo && handlePlayClick(reel.id)}
-                  >
-                    <div className="reel-overlay">
+              <div 
+                key={reel.id} 
+                className={`reel-card ${hasVideo ? 'has-video' : ''}`}
+                style={{ cursor: hasVideo ? 'pointer' : 'default' }}
+                onClick={() => hasVideo && handlePlayClick(reel)}
+              >
+                <div 
+                  className="reel-placeholder" 
+                  style={{ backgroundImage: `url(${reel.thumbnail})` }}
+                >
+                  <div className="reel-overlay">
+                    {hasVideo && (
                       <button 
                         className="reel-play-btn" 
                         aria-label="Play Reel"
                         onClick={(e) => {
                           e.stopPropagation();
-                          if (hasVideo) handlePlayClick(reel.id);
+                          handlePlayClick(reel);
                         }}
                       >
                         <Play size={24} fill="currentColor" />
                       </button>
-                      <h4 className="reel-title">{reel.title}</h4>
-                      {!hasVideo && (
-                        <p style={{ fontSize: '0.8rem', opacity: 0.8 }}>Video coming soon</p>
-                      )}
-                    </div>
+                    )}
+                    <h4 className="reel-title">{reel.title}</h4>
+                    {!hasVideo ? (
+                      <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>Video coming soon</p>
+                    ) : (
+                      <p style={{ fontSize: '0.8rem', color: 'var(--accent-gold)', fontWeight: '500' }}>Click to play</p>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
         </div>
       </div>
+
+      {/* Premium Fullscreen Video Modal (Lightbox) */}
+      {activeModalReel && (
+        <div className="reel-modal-overlay" onClick={() => setActiveModalReel(null)}>
+          <div className="reel-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="reel-modal-header">
+              <h3 className="serif-title">{activeModalReel.title}</h3>
+              <button 
+                className="reel-modal-close" 
+                onClick={() => setActiveModalReel(null)}
+                aria-label="Close video player"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="reel-modal-body">
+              <video 
+                src={activeModalReel.videoUrl} 
+                controls 
+                autoPlay 
+                className="reel-modal-video"
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -42,11 +42,11 @@ const Chatbot = () => {
     }
 
     if (text.includes('pune') || text.includes('location') || text.includes('address') || text.includes('where')) {
-      return "Our physical design studio is located at 302, Signature Plaza, Lane 6, Koregaon Park, Pune, MH. You are welcome to book an appointment to see our physical sample materials catalogue.";
+      return "Our physical design studio is located at Office No C3-312, EPIC Plaza, Kesnand Phata, Wagholi, Pune, Maharashtra 412207. You are welcome to book an appointment to see our physical sample materials catalogue.";
     }
 
     if (text.includes('contact') || text.includes('whatsapp') || text.includes('call') || text.includes('phone') || text.includes('book')) {
-      return "You can call us directly at +91 98765 43210 or leave your contact details in our 'Request a Consultation' form, and our lead stylist Neha will schedule a session with you.";
+      return "You can call us directly at +91 86240 52526 or leave your contact details in our 'Request a Consultation' form, and our lead stylist Neha will schedule a session with you.";
     }
 
     if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {

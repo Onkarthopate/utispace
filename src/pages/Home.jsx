@@ -1,11 +1,12 @@
 import React from 'react';
 import HeroCarousel from '../components/HeroCarousel';
+import ServicesSection from '../components/ServicesSection';
 
 const Home = () => {
   return (
     <div>
       <HeroCarousel />
-      {/* We can add a quick intro or call to action here, but HeroCarousel handles the main landing. */}
+      <ServicesSection />
     </div>
   );
 };
