@@ -3,7 +3,7 @@ import React from 'react';
 const Logo = ({ className = 'logo-icon-img', ...props }) => {
   return (
     <img 
-      src="/images/logo.jpg" 
+      src="/images/logo.jpeg" 
       alt="utispace Logo" 
       className={className} 
       {...props}
