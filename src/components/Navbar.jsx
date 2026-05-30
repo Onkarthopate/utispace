@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Globe, User, Menu, X, ChevronDown } from 'lucide-react';
 import { NavLink, Link } from 'react-router-dom';
 import Logo from './Logo';
+import '../styles/Navbar.css';
 
 const Navbar = ({ onSearch }) => {
   const [scrolled, setScrolled] = useState(false);

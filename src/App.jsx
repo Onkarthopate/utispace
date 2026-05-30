@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Link } from 'react-ro
 import Navbar from './components/Navbar';
 import Chatbot from './components/Chatbot';
 import Logo from './components/Logo';
+import './styles/Footer.css';
 
 import Home from './pages/Home';
 import Portfolio from './pages/Portfolio';

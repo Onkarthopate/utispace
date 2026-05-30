@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import '../styles/BlogSection.css';
 
 const BLOG_CATEGORIES = ['All', 'Real Stories', 'Decor Trends', 'Seasonal', 'Business Office', 'Style and Guides'];
 

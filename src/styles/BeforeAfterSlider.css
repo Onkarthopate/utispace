@@ -1,0 +1,109 @@
+/* Before / After Slider */
+.ba-section {
+  background-color: var(--bg-secondary);
+  position: relative;
+  overflow: hidden;
+}
+
+.ba-slider-container {
+  width: 100%;
+  max-width: 1100px;
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: var(--shadow-premium);
+  border: 1px solid var(--border-color);
+  user-select: none;
+}
+
+@media (max-width: 768px) {
+  .ba-slider-container {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.ba-img-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ba-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ba-after {
+  z-index: 2;
+  clip-path: inset(0 0 0 50%);
+}
+
+.ba-before {
+  z-index: 1;
+}
+
+.ba-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background-color: var(--accent-gold);
+  z-index: 3;
+  cursor: ew-resize;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.ba-handle-circle {
+  width: 48px;
+  height: 48px;
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--accent-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-gold);
+  box-shadow: var(--shadow-premium);
+  transition: transform 0.2s ease;
+}
+
+.ba-handle:hover .ba-handle-circle {
+  transform: scale(1.1);
+  background-color: var(--accent-gold);
+  color: var(--bg-primary);
+}
+
+.ba-label {
+  position: absolute;
+  bottom: 1.5rem;
+  padding: 0.4rem 1rem;
+  background-color: rgba(19, 19, 17, 0.8);
+  border: 1px solid var(--border-color);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  color: var(--text-primary);
+  pointer-events: none;
+}
+
+.ba-label.before-label {
+  left: 1.5rem;
+  z-index: 2;
+}
+
+.ba-label.after-label {
+  right: 1.5rem;
+  z-index: 3;
+}

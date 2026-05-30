@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Sparkles } from 'lucide-react';
+import '../styles/Chatbot.css';
 
 const INITIAL_MESSAGES = [
   {

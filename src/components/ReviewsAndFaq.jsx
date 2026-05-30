@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Star, ChevronDown, MessageSquare } from 'lucide-react';
+import '../styles/ReviewsAndFaq.css';
 
 const REVIEWS = [
   {

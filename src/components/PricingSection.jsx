@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Check, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import '../styles/PricingSection.css';
 
 const PACKAGES = [
   {

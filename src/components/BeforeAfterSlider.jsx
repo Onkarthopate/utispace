@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ArrowLeftRight } from 'lucide-react';
+import '../styles/BeforeAfterSlider.css';
 
 const BeforeAfterSlider = () => {
   const [sliderPos, setSliderPos] = useState(50);

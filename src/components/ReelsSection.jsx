@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Play, X } from 'lucide-react';
+import '../styles/ReelsSection.css';
 
 const REELS = [
   {

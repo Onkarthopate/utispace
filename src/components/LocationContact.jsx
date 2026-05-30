@@ -1,5 +1,6 @@
 import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import {useState} from 'react';
+import '../styles/LocationContact.css';
 
 const Instagram = ({ size = 24, ...props }) => (
   <svg

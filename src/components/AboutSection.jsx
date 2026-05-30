@@ -1,4 +1,5 @@
 import { Mail } from 'lucide-react';
+import '../styles/AboutSection.css';
 
 const Instagram = ({ size = 24, ...props }) => (
   <svg
