@@ -127,7 +127,7 @@ const PROJECTS = [
   {
     id: 5,
     title: 'Luxe Living Area',
-    category: 'Living & Dining',
+    category: 'Bedrooms',
     desc: 'Cozy and luxurious family lounge featuring warm recessed lighting and a bespoke media console.',
     image: '/images/living-2.jpg',
     size: '800 sq ft',
@@ -179,7 +179,7 @@ const PROJECTS = [
   {
     id: 7,
     title: 'Serene Master Suite',
-    category: 'Bedrooms',
+    category: 'Full Home',
     desc: 'A tranquil sleeping space focusing on natural textures, soft fabrics, and muted warm tones.',
     image: '/images/bedroom-real-2.jpg',
     size: '500 sq ft',
@@ -204,8 +204,8 @@ const PROJECTS = [
   },
   {
     id: 8,
-    title: 'Sleek Charcoal Kitchen',
-    category: 'Kitchen & Bath',
+    title: 'Sleek Charcoal',
+    category: 'Living & Dining',
     desc: 'Integrated dark laminate cabinets, marble countertops, under-shelf warm strip lights, and gold faucets.',
     image: '/images/kitchen-real-1.jpg',
     size: '280 sq ft',
@@ -256,8 +256,8 @@ const PROJECTS = [
   },
   {
     id: 10,
-    title: 'Monochromatic Spa Bath',
-    category: 'Kitchen & Bath',
+    title: 'Monochromatic',
+    category: 'Bedrooms',
     desc: 'Walk-in rain shower with slate-grey tile accents, dual floating vanities, and warm backlit mirrors.',
     image: '/images/bath-1.jpg',
     size: '180 sq ft',
@@ -279,7 +279,33 @@ const PROJECTS = [
       'Thermostatic Plumbing & Jets: 30%',
       'Backlit Anti-fog Mirror & Trims: 15%'
     ]
-  }
+  },
+  {
+    id: 11,
+    title: 'Kitchen Noir',
+    category: 'Kitchen & Bath',
+    desc: 'Integrated dark laminate cabinets, marble countertops, under-shelf warm strip lights, and gold faucets.',
+    image: '/images/kitchem.jpeg',
+    size: '280 sq ft',
+    location: 'Baner, Pune',
+    materials: 'Quartz, Walnut veneer, Gold-steel',
+    philosophy: 'A culinary engine designed for professional-grade cooking. Dark anti-fingerprint charcoal surfaces contrast with pure white marble quartz to present a bold, dramatic aesthetic.',
+    highlights: [
+      'Anti-fingerprint charcoal nano-laminate cabinet shutters',
+      'Premium seamless quartz countertop and backsplashes (15mm thick)',
+      'Concealed soft-close pullout drawers with customizable spice trays',
+      'Signature brushed gold high-arch sink faucet with pull-down spray'
+    ],
+    timeline: '5 Weeks',
+    budgetTier: 'Gourmet Modular Premium',
+    basePricePerSqFt: 4800,
+    breakdown: [
+      'Quartz Countertops & Slabs: 30%',
+      'Smart Modular Shutters & Pullouts: 40%',
+      'Built-in Chimney & Appliance Housing: 20%',
+      'Brushed Gold Fittings & Faucets: 10%'
+    ]
+  },
 ];
 
 const ProjectShowcase = ({ searchFilter = '' }) => {
