@@ -181,7 +181,7 @@ const PricingSection = () => {
               </p>
             </div>
             <a 
-              href={'https://wa.me/919999999999?text=' + encodeURIComponent('Hello utispace, I used your estimator and got an estimate of ' + calculateEstimate() + ' for a ' + area + ' sq ft ' + designType + '. I\'d like to schedule a consultation.')}
+              href={'https://wa.me/918624052526?text=' + encodeURIComponent('Hello utispace, I used your estimator and got an estimate of ' + calculateEstimate() + ' for a ' + area + ' sq ft ' + designType + '. I\'d like to schedule a consultation.')}
               target="_blank" 
               rel="noopener noreferrer" 
               className="btn-primary"
