@@ -1,6 +1,22 @@
-import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
-import {useState} from 'react';
+import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import '../styles/LocationContact.css';
+
+// ─── EmailJS Configuration ───────────────────────────────────────────────────
+// 1. Go to https://emailjs.com and create a FREE account
+// 2. Add an Email Service (Gmail recommended) → copy the Service ID
+// 3. Create an Email Template with these variables:
+//      {{from_name}}, {{from_email}}, {{phone}}, {{service}}, {{message}}
+//    Copy the Template ID
+// 4. Go to Account → API Keys → copy your Public Key
+// 5. Replace the placeholders below with your actual values
+const EMAILJS_SERVICE_ID  = 'service_t3i746t';   // e.g. 'service_abc123'
+const EMAILJS_TEMPLATE_ID = 'template_kit3ydj';  // e.g. 'template_xyz456'
+const EMAILJS_PUBLIC_KEY  = 'dgueglf4r95bYAErv';   // e.g. 'AbCdEfGhIjKlMnOp'
+
+// ─── WhatsApp Notification Number ────────────────────────────────────────────
+const WHATSAPP_NUMBER = '918767089922'; // Your number with country code (no + or spaces)
 
 const Instagram = ({ size = 24, ...props }) => (
   <svg
@@ -30,37 +46,77 @@ const LocationContact = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading]   = useState(false);
+  const [error, setError]       = useState('');
 
-  const handleSubmit = (e) => {
+  const sendWhatsAppNotification = (data) => {
+    const text = encodeURIComponent(
+      `🏠 *New utispace Consultation Request!*\n\n` +
+      `👤 *Name:* ${data.name}\n` +
+      `📧 *Email:* ${data.email}\n` +
+      `📱 *Phone:* ${data.phone || 'Not provided'}\n` +
+      `🛋️ *Service:* ${data.service}\n` +
+      `📝 *Message:* ${data.message || 'No details provided'}`
+    );
+    // Opens WhatsApp with a pre-filled message to your number
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank');
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.name && formData.email) {
-      setSubmitted(true);
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: 'Full Home Handover',
-        message: ''
-      });
+    if (!formData.name || !formData.email) return;
+
+    setLoading(true);
+    setError('');
+
+    // ── 1. Send Email via EmailJS ─────────────────────────────────────────
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone:      formData.phone || 'Not provided',
+          service:    formData.service,
+          message:    formData.message || 'No details provided',
+          reply_to:   formData.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      // Still proceed — WhatsApp notification will still fire
     }
+
+    // ── 2. Open WhatsApp with pre-filled notification message ─────────────
+    sendWhatsAppNotification(formData);
+
+    setLoading(false);
+    setSubmitted(true);
+
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      service: 'Full Home Handover',
+      message: ''
+    });
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
     <section id="contact" className="contact-section section-padding" style={{ backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)' }}>
       <div className="container">
         <div className="contact-layout">
-          {/* Left: Contact Info & FAQ Accordion info */}
+          {/* Left: Contact Info */}
           <div>
             <span className="hero-subtitle">Get In Touch</span>
-            <h2 className="serif-title" style={{ fontSize: '3.2rem', marginBottom: '1.5rem' }}>Let’s Co-Create Your Space</h2>
+            <h2 className="serif-title" style={{ fontSize: '3.2rem', marginBottom: '1.5rem' }}>Let's Co-Create Your Space</h2>
             <p style={{ color: 'var(--text-secondary)', marginBottom: '3rem', fontSize: '1.05rem', maxWidth: '550px' }}>
               Have an upcoming residential or office project in Pune? Contact us to schedule an initial design layout consultation or site measurement tour.
             </p>
@@ -113,7 +169,7 @@ const LocationContact = () => {
                 <MapPin className="simulated-map-pin" />
                 <div className="simulated-map-label">utispace Studio</div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>EPIC Plaza, Kesnand Phata, Wagholi, Pune</div>
-                </div>
+              </div>
             </div>
           </div>
 
@@ -139,11 +195,11 @@ const LocationContact = () => {
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>Full Name</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     name="name"
-                    className="form-control" 
-                    required 
+                    className="form-control"
+                    required
                     placeholder="Enter name"
                     value={formData.name}
                     onChange={handleChange}
@@ -153,11 +209,11 @@ const LocationContact = () => {
                 <div className="form-row">
                   <div className="form-group">
                     <label>Email Address</label>
-                    <input 
-                      type="email" 
+                    <input
+                      type="email"
                       name="email"
-                      className="form-control" 
-                      required 
+                      className="form-control"
+                      required
                       placeholder="name@email.com"
                       value={formData.email}
                       onChange={handleChange}
@@ -165,10 +221,10 @@ const LocationContact = () => {
                   </div>
                   <div className="form-group">
                     <label>Phone Number</label>
-                    <input 
-                      type="tel" 
+                    <input
+                      type="tel"
                       name="phone"
-                      className="form-control" 
+                      className="form-control"
                       placeholder="e.g. +91 99999..."
                       value={formData.phone}
                       onChange={handleChange}
@@ -178,15 +234,15 @@ const LocationContact = () => {
 
                 <div className="form-group">
                   <label>Space Designing Type</label>
-                  <select 
+                  <select
                     name="service"
-                    className="form-control" 
+                    className="form-control"
                     value={formData.service}
                     onChange={handleChange}
                   >
                     <option value="Full Home Handover">Full Turnkey Home Handover</option>
                     <option value="Office Design">Premium Office / Commercial</option>
-                    <option value="Living Room">Living & Dining Area</option>
+                    <option value="Living Room">Living &amp; Dining Area</option>
                     <option value="Bedroom Styling">Bespoke Bedroom Design</option>
                     <option value="Kitchen Remodel">Modern Kitchen Remodeling</option>
                     <option value="General Consultation">1-Hour Consultation Call</option>
@@ -195,19 +251,37 @@ const LocationContact = () => {
 
                 <div className="form-group">
                   <label>Project Details / Ambitions</label>
-                  <textarea 
+                  <textarea
                     name="message"
-                    rows="4" 
-                    className="form-control" 
+                    rows="4"
+                    className="form-control"
                     placeholder="Describe your design goals, materials, ideas..."
                     value={formData.message}
                     onChange={handleChange}
                   ></textarea>
                 </div>
 
-                <button type="submit" className="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: '1rem' }}>
-                  <span>Book Consultation</span>
-                  <Send size={15} />
+                {error && (
+                  <p style={{ color: '#e05252', fontSize: '0.85rem', marginTop: '0.5rem' }}>{error}</p>
+                )}
+
+                <button
+                  type="submit"
+                  className="btn-primary"
+                  disabled={loading}
+                  style={{ width: '100%', justifyContent: 'center', marginTop: '1rem', opacity: loading ? 0.7 : 1 }}
+                >
+                  {loading ? (
+                    <>
+                      <span>Sending...</span>
+                      <Loader2 size={15} style={{ animation: 'spin 1s linear infinite' }} />
+                    </>
+                  ) : (
+                    <>
+                      <span>Book Consultation</span>
+                      <Send size={15} />
+                    </>
+                  )}
                 </button>
               </form>
             )}
