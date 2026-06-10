@@ -67,6 +67,8 @@ const Navbar = ({ onSearch }) => {
     setUserName('');
   };
 
+  const closeDrawer = () => setMobileMenuOpen(false);
+
   return (
     <>
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -77,45 +79,28 @@ const Navbar = ({ onSearch }) => {
             utispace<span>STUDIO</span>
           </Link>
 
-          {/* Navigation Links */}
-          <div className={`nav-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-            <NavLink to="/" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Home</NavLink>
-            <NavLink to="/portfolio" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Portfolio</NavLink>
-            <NavLink to="/blog" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Blog</NavLink>
-            <NavLink to="/about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>About Us</NavLink>
-            <NavLink to="/pricing" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Pricing</NavLink>
-            <NavLink to="/contact" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Contact</NavLink>
+          {/* Desktop Navigation Links */}
+          <div className="nav-links">
+            <NavLink to="/" className="nav-link">Home</NavLink>
+            <NavLink to="/portfolio" className="nav-link">Portfolio</NavLink>
+            <NavLink to="/blog" className="nav-link">Blog</NavLink>
+            <NavLink to="/about" className="nav-link">About Us</NavLink>
+            <NavLink to="/pricing" className="nav-link">Pricing</NavLink>
+            <NavLink to="/contact" className="nav-link">Contact</NavLink>
           </div>
 
-          {/* Nav Actions */}
-          <div className={`nav-actions ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-            {/* Search Bar */}
+          {/* Desktop Nav Actions */}
+          <div className="nav-actions">
             <form onSubmit={handleSearchSubmit} className="nav-search-bar">
               <Search size={16} className="gold-text" />
-              <input 
-                type="text" 
-                placeholder="Search ideas..." 
+              <input
+                type="text"
+                placeholder="Search ideas..."
                 value={searchVal}
                 onChange={handleSearchChange}
               />
             </form>
 
-            {/* Language Selector */}
-            {/* <div className="lang-dropdown-container">
-              <button className="lang-btn" onClick={() => setLangMenuOpen(!langMenuOpen)}>
-                <Globe size={15} />
-                <span>{selectedLang}</span>
-                <ChevronDown size={12} />
-              </button>
-              <div className={`lang-menu ${langMenuOpen ? 'show' : ''}`}>
-                <div className="lang-item" onClick={() => selectLanguage('English')}>English</div>
-                <div className="lang-item" onClick={() => selectLanguage('Español')}>Español</div>
-                <div className="lang-item" onClick={() => selectLanguage('Français')}>Français</div>
-                <div className="lang-item" onClick={() => selectLanguage('Deutsch')}>Deutsch</div>
-              </div>
-            </div> */}
-
-            {/* Login / Auth */}
             {isLoggedIn ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--accent-gold)' }}>Hello, {userName}</span>
@@ -131,12 +116,79 @@ const Navbar = ({ onSearch }) => {
             )}
           </div>
 
-          {/* Mobile Toggle Button */}
-          <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X /> : <Menu />}
+          {/* Mobile Hamburger Toggle */}
+          <button className="mobile-toggle" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">
+            <Menu />
           </button>
         </div>
       </nav>
+
+      {/* ── Right-Side Drawer Backdrop ── */}
+      <div
+        className={`mobile-backdrop ${mobileMenuOpen ? 'open' : ''}`}
+        onClick={closeDrawer}
+        aria-hidden="true"
+      />
+
+      {/* ── Right-Side Sliding Drawer ── */}
+      <div className={`mobile-drawer ${mobileMenuOpen ? 'open' : ''}`} role="dialog" aria-modal="true">
+
+        {/* Drawer Header */}
+        <div className="drawer-header">
+          <Link to="/" className="logo-brand serif-title" onClick={closeDrawer}>
+            <Logo />
+            utispace<span>STUDIO</span>
+          </Link>
+          <button className="drawer-close" onClick={closeDrawer} aria-label="Close menu">
+            <X size={22} />
+          </button>
+        </div>
+
+        {/* Drawer Body: Search + Nav Links */}
+        <div className="drawer-body">
+          {/* 1. Search Bar */}
+          <form onSubmit={(e) => { handleSearchSubmit(e); closeDrawer(); }} className="drawer-search">
+            <Search size={16} className="gold-text" />
+            <input
+              type="text"
+              placeholder="Search ideas..."
+              value={searchVal}
+              onChange={handleSearchChange}
+            />
+          </form>
+
+          {/* 2. Nav Links */}
+          <nav className="drawer-nav-links">
+            <NavLink to="/"         className="drawer-nav-link" onClick={closeDrawer}>Home</NavLink>
+            <NavLink to="/portfolio" className="drawer-nav-link" onClick={closeDrawer}>Portfolio</NavLink>
+            <NavLink to="/blog"     className="drawer-nav-link" onClick={closeDrawer}>Blog</NavLink>
+            <NavLink to="/about"    className="drawer-nav-link" onClick={closeDrawer}>About Us</NavLink>
+            <NavLink to="/pricing"  className="drawer-nav-link" onClick={closeDrawer}>Pricing</NavLink>
+            <NavLink to="/contact"  className="drawer-nav-link" onClick={closeDrawer}>Contact</NavLink>
+          </nav>
+        </div>
+
+        {/* 3. Login Button at Bottom */}
+        <div className="drawer-footer">
+          {isLoggedIn ? (
+            <div style={{ textAlign: 'center' }}>
+              <p style={{ fontSize: '0.85rem', color: 'var(--accent-gold)', marginBottom: '0.8rem' }}>Hello, {userName}</p>
+              <button className="btn-primary" style={{ width: '100%', justifyContent: 'center' }} onClick={() => { handleLogout(); closeDrawer(); }}>
+                Logout
+              </button>
+            </div>
+          ) : (
+            <button
+              className="btn-primary"
+              onClick={() => { setLoginModalOpen(true); closeDrawer(); }}
+            >
+              <User size={14} />
+              <span>Log In</span>
+            </button>
+          )}
+        </div>
+      </div>
+
 
       {/* Login Modal Overlay */}
       <div className={`modal-overlay ${loginModalOpen ? 'show' : ''}`} onClick={() => setLoginModalOpen(false)}>
