@@ -134,6 +134,39 @@
   100% { transform: scale(1); }
 }
 
+/* ── Leaflet Popup – Light Map Theme ── */
+.leaflet-popup-content-wrapper {
+  background-color: #ffffff !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 10px !important;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18) !important;
+  color: #222 !important;
+}
+.leaflet-popup-tip {
+  background-color: #ffffff !important;
+}
+.leaflet-popup-content {
+  margin: 12px 16px !important;
+}
+
+/* ── Leaflet zoom controls ── */
+.leaflet-control-zoom a {
+  background-color: #ffffff !important;
+  color: #e53935 !important;
+  border-color: #ddd !important;
+  font-weight: 700 !important;
+}
+.leaflet-control-zoom a:hover {
+  background-color: #ffeaea !important;
+  color: #b71c1c !important;
+}
+
+/* ── Leaflet attribution ── */
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(255,255,255,0.8) !important;
+}
+
 .simulated-map-label {
   font-weight: 600;
   font-size: 0.9rem;

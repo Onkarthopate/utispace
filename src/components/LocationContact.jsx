@@ -1,7 +1,35 @@
 import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import '../styles/LocationContact.css';
+
+// Fix default marker icons (Leaflet + Vite issue)
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl:       'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl:     'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+});
+
+// Custom RED pin icon using SVG divIcon
+const redIcon = L.divIcon({
+  className: '',
+  html: `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="32" height="48">
+      <path d="M12 0C5.373 0 0 5.373 0 12c0 9 12 24 12 24S24 21 24 12C24 5.373 18.627 0 12 0z"
+        fill="#e53935" stroke="#b71c1c" stroke-width="1"/>
+      <circle cx="12" cy="12" r="5" fill="white" opacity="0.9"/>
+    </svg>`,
+  iconSize: [32, 48],
+  iconAnchor: [16, 48],
+  popupAnchor: [0, -50],
+});
+
+// utispace Studio coordinates — EPIC Plaza, Kesnand Phata, Wagholi, Pune
+const STUDIO_COORDS = [18.5741, 73.9893];
 
 // ─── EmailJS Configuration ───────────────────────────────────────────────────
 // 1. Go to https://emailjs.com and create a FREE account
@@ -163,13 +191,47 @@ const LocationContact = () => {
               </div>
             </div>
 
-            {/* Map Preview */}
-            <div className="map-container">
-              <div className="simulated-map">
-                <MapPin className="simulated-map-pin" />
-                <div className="simulated-map-label">utispace Studio</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>EPIC Plaza, Kesnand Phata, Wagholi, Pune</div>
-              </div>
+            {/* Map Preview – Real Leaflet Map */}
+            <div className="map-container" style={{ borderRadius: '12px', overflow: 'hidden', height: '280px', border: '1px solid var(--border-color)' }}>
+              <MapContainer
+                center={STUDIO_COORDS}
+                zoom={15}
+                scrollWheelZoom={true}
+                style={{ width: '100%', height: '100%' }}
+                attributionControl={false}
+              >
+                {/* Light/White tile layer — OpenStreetMap (shows all nearby locations) */}
+                <TileLayer
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  maxZoom={19}
+                />
+                <Marker position={STUDIO_COORDS} icon={redIcon}>
+                  <Popup
+                    className="utispace-popup"
+                    closeButton={false}
+                    autoOpen={true}
+                  >
+                    <div style={{ fontFamily: 'inherit', minWidth: '180px', padding: '4px 0' }}>
+                      <strong style={{ fontSize: '0.95rem', color: '#e53935', display: 'block', marginBottom: '4px' }}>
+                        📍 utispace Studio
+                      </strong>
+                      <span style={{ fontSize: '0.78rem', color: '#444', lineHeight: '1.5', display: 'block', marginBottom: '8px' }}>
+                        Office No C3-312, EPIC Plaza,<br/>
+                        Kesnand Phata, Wagholi, Pune 412207
+                      </span>
+                      <a
+                        href="https://www.google.com/maps/dir/?api=1&destination=18.5741,73.9893"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ fontSize: '0.78rem', color: '#e53935', textDecoration: 'underline', fontWeight: 700 }}
+                      >
+                       View on Map
+                      </a>
+                    </div>
+                  </Popup>
+                </Marker>
+              </MapContainer>
             </div>
           </div>
 

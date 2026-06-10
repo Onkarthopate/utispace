@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Search, Globe, User, Menu, X, ChevronDown } from 'lucide-react';
 import { NavLink, Link } from 'react-router-dom';
 import Logo from './Logo';
+import SearchDropdown from './SearchDropdown';
 import '../styles/Navbar.css';
 
 const Navbar = ({ onSearch }) => {
@@ -89,17 +90,9 @@ const Navbar = ({ onSearch }) => {
             <NavLink to="/contact" className="nav-link">Contact</NavLink>
           </div>
 
-          {/* Desktop Nav Actions */}
+          {/* Desktop Search — Smart Dropdown */}
           <div className="nav-actions">
-            <form onSubmit={handleSearchSubmit} className="nav-search-bar">
-              <Search size={16} className="gold-text" />
-              <input
-                type="text"
-                placeholder="Search ideas..."
-                value={searchVal}
-                onChange={handleSearchChange}
-              />
-            </form>
+            <SearchDropdown />
 
             {isLoggedIn ? (
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -146,16 +139,8 @@ const Navbar = ({ onSearch }) => {
 
         {/* Drawer Body: Search + Nav Links */}
         <div className="drawer-body">
-          {/* 1. Search Bar */}
-          <form onSubmit={(e) => { handleSearchSubmit(e); closeDrawer(); }} className="drawer-search">
-            <Search size={16} className="gold-text" />
-            <input
-              type="text"
-              placeholder="Search ideas..."
-              value={searchVal}
-              onChange={handleSearchChange}
-            />
-          </form>
+          {/* 1. Search Bar — Smart Dropdown */}
+          <SearchDropdown onClose={closeDrawer} />
 
           {/* 2. Nav Links */}
           <nav className="drawer-nav-links">
